@@ -4,8 +4,11 @@ require('dotenv/config');
 
 const api = process.env.API_URL;
 
-app.get(api+'/', (req, res)=>{
-  res.send('hello api');
+app.use(express.json());
+
+app.post(`${api}/products`, (req, res)=>{
+  const newProduct = req.body;
+  res.send(newProduct);
 })
 
 app.listen(3000, 
