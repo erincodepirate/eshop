@@ -31,7 +31,12 @@ router.post(`/`, async (req, res)=>{
 });
 
 router.get(`/`, async (req, res)=>{
-  const productList = await Product.find(); //.select('name image -_id');
+  let filter = {};
+  if(req.query.categories){
+    filter = {category: req.query.categories.split(',')};
+  }
+
+  const productList = await Product.find(filter).populate('category'); //.select('name image -_id');
 
   if(!productList) {
     res.status(500).json({success: false})
@@ -100,7 +105,7 @@ router.get(`/get/count`, async (req, res)=> {
   }
   res.send({productCount: productCount})
 
-})
+});
 
 router.get(`/get/featured/:count`, async (req, res)=> {
   const count = parseInt(req.params.count) ? req.params.count : 0;
@@ -111,6 +116,6 @@ router.get(`/get/featured/:count`, async (req, res)=> {
   }
   res.send(products)
 
-})
+});
 
 module.exports = router;
