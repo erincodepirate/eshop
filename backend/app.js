@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const expressJwt = require('./helpers/jwt');
+const errorHandler = require('./helpers/error-handler');
 
 require('dotenv/config');
 
@@ -21,6 +22,7 @@ const usersRouter = require('./routers/users');
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(expressJwt());
+app.use(errorHandler);
 
 app.use(`${api}/categories`, categoriesRouter);
 app.use(`${api}/orders`, ordersRouter);
