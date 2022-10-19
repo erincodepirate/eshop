@@ -3,7 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const { expressjwt: jwt } = require("express-jwt");
+const expressJwt = require('./helpers/jwt');
 
 require('dotenv/config');
 
@@ -11,7 +11,6 @@ app.use(cors());
 app.options('*', cors());
 
 const api = process.env.API_URL;
-const secret = process.env.secret;
 
 // routes
 const categoriesRouter = require('./routers/categories');
@@ -21,7 +20,7 @@ const usersRouter = require('./routers/users');
 
 app.use(express.json());
 app.use(morgan('tiny'));
-app.use(jwt({secret: secret, algorithms: ["HS256"]}));
+app.use(expressJwt());
 
 app.use(`${api}/categories`, categoriesRouter);
 app.use(`${api}/orders`, ordersRouter);
