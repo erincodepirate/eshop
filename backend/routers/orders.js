@@ -1,16 +1,40 @@
 const express = require('express');
 const router = express.Router();
 const {Order} = require('../models/order');
+const { OrderItem } = require('../models/order-item');
 
-router.post(`/`, (req, res)=>{
-  const order = new Order({
+router.post(`/`, async (req, res)=>{
+  const orderItemsIds = Promise.all(req.body.orderItems.map(async orderItem => {
+    let newOrderItem = new OrderItem({
+      quantity: orderItem.quantity,
+      product: orderItem.product
+    });
+
+    newOrderItem = await newOrderItem.save();
+
+    return newOrderItem._id;
+  }));
+
+  const orderItemsIdsResolved =  await orderItemsIds;
+
+  let order = new Order({
+    orderItems: orderItemsIdsResolved,
+    shippingAddress1: req.body.shippingAddress1,
+    shippingAddress2: req.body.shippingAddress2,
+    city: req.body.city,
+    zip: req.body.zip,
+    country: req.body.country,
+    phone: req.body.phone,
+    status: req.body.status,
+    totalPrice: req.body.totalPrice,
+    user: req.body.user
   });
 
-  order.save().then(createdOrder => {
-    res.status(201).json(createdOrder);
-  }).catch(err => {
-    res.status(500).json({error: err, success: false});
-  })
+  order = await order.save();
+  if (!order) {
+    return res.status(400).send('The order cannot be created!')
+  }
+  return res.send(order);
 });
 
 router.get(`/`, async (req, res)=>{
