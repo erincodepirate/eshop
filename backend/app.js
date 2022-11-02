@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const expressJwt = require('./helpers/jwt');
 const errorHandler = require('./helpers/error-handler');
+const multer = require('multer');
+
+const upload = multer({dest: ''});
 
 require('dotenv/config');
 
