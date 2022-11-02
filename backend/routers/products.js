@@ -5,14 +5,28 @@ const {Product} = require('../models/product');
 const mongoose = require('mongoose');
 const multer = require('multer');
 
+const FILE_TYPE_MAP = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg'
+}
+
 const uploadFolder = 'public/uploads'
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadFolder)
+    const isValid = FILE_TYPE_MAP[file.mimetype];
+    let uploadError = new Error('invalid image type');
+
+    if(isValid){
+      uploadError = null;
+    }
+
+    cb(uploadError, uploadFolder);
   },
   filename: function (req, file, cb) {
     const fileName = file.originalname.replace(' ', '-');
-    cb(null, fileName + '-' + Date.now());
+    const extension = FILE_TYPE_MAP[file.mimetype];
+    cb(null, `${fileName}-${Date.now()}.${extension}`);
   }
 })
 
@@ -23,7 +37,7 @@ router.post(`/`, uploadOptions.single('image'), async (req, res)=>{
   const category = await Category.findById(req.body.category);
   if(!category)
   return res.status(400).send('Invalid category');
-  
+
   const fileName = req.file.filename;
   const basePath = `${req.protocol}://${req.get('host')}/${uploadFolder}`
 
