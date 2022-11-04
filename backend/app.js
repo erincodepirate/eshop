@@ -5,9 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const expressJwt = require('./helpers/jwt');
 const errorHandler = require('./helpers/error-handler');
-const multer = require('multer');
 
-const upload = multer({dest: ''});
 
 require('dotenv/config');
 
@@ -26,6 +24,7 @@ app.use(express.json());
 app.use(morgan('tiny'));
 app.use(expressJwt());
 app.use(errorHandler);
+app.use('/public/uploads', express.static(__dirname + '/public/uploads'));
 
 app.use(`${api}/categories`, categoriesRouter);
 app.use(`${api}/orders`, ordersRouter);
