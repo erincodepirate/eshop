@@ -154,4 +154,31 @@ router.get(`/get/featured/:count`, async (req, res)=> {
 
 });
 
+router.put(`/gallery-images/:id`,
+  uploadOptions.array('images', 10),
+  async (req, res)=>{
+  if(!mongoose.isValidObjectId(req.params.id)) {
+    res.status(400).send('Invalid product id');
+  }
+  const files = req.files;
+  let imagePaths = [];
+
+  if(files) {
+    files.map(file => {
+      imagePaths.push(file.filename);
+    });
+  }
+
+  const product = await Product.findByIdAndUpdate(
+    req.params.id,
+    {
+      images: imagePaths,
+    }, {new: true});
+
+  if(!product)
+  return res.status(500).send('The product cannot be updated');
+
+  res.send(product);
+});
+
 module.exports = router;
