@@ -1,0 +1,28 @@
+{
+  "root": "apps/raccoonshop-e2e",
+  "sourceRoot": "apps/raccoonshop-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/raccoonshop-e2e/cypress.json",
+        "devServerTarget": "raccoonshop:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "raccoonshop:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/raccoonshop-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["raccoonshop"]
+}

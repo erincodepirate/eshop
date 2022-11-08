@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "raccoonshop": "apps/raccoonshop",
+    "raccoonshop-e2e": "apps/raccoonshop-e2e"
+  }
+}
