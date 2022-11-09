@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "admin": "apps/admin",
+    "admin-e2e": "apps/admin-e2e",
     "raccoonshop": "apps/raccoonshop",
     "raccoonshop-e2e": "apps/raccoonshop-e2e"
   }
