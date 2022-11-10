@@ -3,7 +3,11 @@
   "projects": {
     "admin": "apps/admin",
     "admin-e2e": "apps/admin-e2e",
+    "orders": "libs/orders",
+    "products": "libs/products",
     "raccoonshop": "apps/raccoonshop",
-    "raccoonshop-e2e": "apps/raccoonshop-e2e"
+    "raccoonshop-e2e": "apps/raccoonshop-e2e",
+    "ui": "libs/ui",
+    "users": "libs/users"
   }
 }

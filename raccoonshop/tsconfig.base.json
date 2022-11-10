@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@raccoonshop/orders": ["libs/orders/src/index.ts"],
+      "@raccoonshop/products": ["libs/products/src/index.ts"],
+      "@raccoonshop/ui": ["libs/ui/src/index.ts"],
+      "@raccoonshop/users": ["libs/users/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
