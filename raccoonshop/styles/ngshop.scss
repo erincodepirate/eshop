@@ -4,9 +4,12 @@
 @import './base/mixins.scss';
 @import './base/configuration.scss';
 
+//External libraries
 @import '~primeicons/primeicons.css';
 @import "~primeng/resources/themes/saga-green/theme.css";
 @import '~primeng/resources/primeng.min.css';
+@import '~primeflex/primeflex.css';
+
 //Pages
 @import './apps/shop/pages/home-page.scss';
 @import './apps/shop/pages/products-list-page.scss';
