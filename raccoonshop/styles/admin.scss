@@ -1,3 +1,18 @@
+//Base
 @import './base/colors.scss';
 @import './base/fonts.scss';
+@import './base/mixins.scss';
 @import './base/configuration.scss';
+
+//External libraries
+@import '~primeicons/primeicons.css';
+@import "~primeng/resources/themes/saga-green/theme.css";
+@import '~primeng/resources/primeng.min.css';
+@import '~primeflex/primeflex.css';
+
+//Pages
+
+//Shared
+
+//Libs
+@import './libs/ui/ui.scss';
