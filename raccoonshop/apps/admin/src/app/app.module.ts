@@ -13,6 +13,8 @@ import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
+import { HttpClientModule } from '@angular/common/http';
+import { CategoriesService } from '@raccoonshop/products';
 
 const UX_MODULE = [CardModule, ToolbarModule, ButtonModule, TableModule];
 
@@ -36,10 +38,11 @@ const routes: Routes = [{
   declarations: [AppComponent, NxWelcomeComponent, ShellComponent, SidebarComponent, DashboardComponent, CategoriesListComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
     [...UX_MODULE]
   ],
-  providers: [],
+  providers: [CategoriesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
