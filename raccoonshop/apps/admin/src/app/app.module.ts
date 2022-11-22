@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -15,34 +15,52 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriesService } from '@raccoonshop/products';
+import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-const UX_MODULE = [CardModule, ToolbarModule, ButtonModule, TableModule];
+const UX_MODULE = [InputTextModule, CardModule, ToolbarModule, ButtonModule, TableModule];
 
-const routes: Routes = [{
+const routes: Routes = [
+  {
     path: '',
     component: ShellComponent,
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
       },
       {
         path: 'categories',
-        component: CategoriesListComponent
+        component: CategoriesListComponent,
+      },
+      {
+        path: 'categories/form',
+        component: CategoriesFormComponent
       }
-    ]
+    ],
   },
 ];
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent, ShellComponent, SidebarComponent, DashboardComponent, CategoriesListComponent],
+  declarations: [
+    AppComponent,
+    NxWelcomeComponent,
+    ShellComponent,
+    SidebarComponent,
+    DashboardComponent,
+    CategoriesListComponent,
+    CategoriesFormComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
-    [...UX_MODULE]
+    [...UX_MODULE],
   ],
-  providers: [CategoriesService],
+  providers: [CategoriesService, FormBuilder],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
