@@ -38,14 +38,12 @@ export class CategoriesFormComponent implements OnInit {
     this.categoriesService.createCategory(category).subscribe({
       next: res => {
         this.messageService.add({severity:'success', summary:'Success', detail:'Category is Created'});
-      },
-      error: err => {
-        this.messageService.add({severity:'error', summary:'Error', detail:'Error creating category'});
-      },
-      complete: () => {
         setTimeout(()=> {
           this.router.navigate(['/', 'categories']);
         }, 2000)
+      },
+      error: err => {
+        this.messageService.add({severity:'error', summary:'Error', detail:'Error creating category'});
       }
     });
   }
