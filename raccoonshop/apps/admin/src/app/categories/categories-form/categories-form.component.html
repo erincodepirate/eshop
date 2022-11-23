@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="admin-page">
     <p-card header="Add Categories" subheader="You can add or edit categories here.">
         <div class="p-grid">
@@ -29,14 +30,14 @@
                         <div class="p-field p-col">
                           <label for="name">Name</label>
                           <input formControlName="name" id="name" type="text" pInputText />
-                          <small *ngIf="form.controls['name'].invalid && !isSubmitted" class="p-error"
+                          <small *ngIf="form.controls['name'].invalid && isSubmitted" class="p-error"
                             >Name is required</small
                           >
                         </div>
                         <div class="p-field p-col">
                           <label for="icon">Icon</label>
                           <input formControlName="icon" id="icon" type="text" pInputText />
-                          <small *ngIf="form.controls['icon'].invalid && !isSubmitted" class="p-error"
+                          <small *ngIf="form.controls['icon'].invalid && isSubmitted" class="p-error"
                             >Icon is required</small
                           >
                         </div>

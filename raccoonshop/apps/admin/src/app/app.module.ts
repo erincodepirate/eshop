@@ -1,5 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
@@ -18,8 +19,10 @@ import { CategoriesService } from '@raccoonshop/products';
 import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
-const UX_MODULE = [InputTextModule, CardModule, ToolbarModule, ButtonModule, TableModule];
+const UX_MODULE = [ToastModule, InputTextModule, CardModule, ToolbarModule, ButtonModule, TableModule];
 
 const routes: Routes = [
   {
@@ -57,10 +60,11 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
     [...UX_MODULE],
   ],
-  providers: [CategoriesService, FormBuilder],
+  providers: [CategoriesService, FormBuilder, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
