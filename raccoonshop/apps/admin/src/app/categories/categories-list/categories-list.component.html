@@ -27,7 +27,7 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-category>
                         <tr>
-                            <td>{{category._id}}</td>
+                            <td>{{category.id}}</td>
                             <td>{{category.name}}</td>
                             <td>{{category.icon}}</td>
                             <td>
@@ -42,6 +42,7 @@
                                     styleClass="p-button-success"
                                     label="Edit" 
                                     icon="pi pi-pencil" 
+                                    (click)="updateCategory(category._id)"
                                     >
                                 </p-button>
                             </td>
