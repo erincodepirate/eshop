@@ -22,8 +22,18 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
-const UX_MODULE = [ConfirmDialogModule, ToastModule, InputTextModule, CardModule, ToolbarModule, ButtonModule, TableModule];
+const UX_MODULE = [
+  ColorPickerModule, 
+  ConfirmDialogModule, 
+  ToastModule, 
+  InputTextModule, 
+  CardModule, 
+  ToolbarModule, 
+  ButtonModule, 
+  TableModule
+];
 
 const routes: Routes = [
   {

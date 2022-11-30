@@ -22,7 +22,8 @@ export class CategoriesFormComponent implements OnInit {
     private route: ActivatedRoute) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      icon: ['', Validators.required]
+      icon: ['', Validators.required],
+      color: ['#fff']
     })
   }
 
@@ -33,6 +34,7 @@ export class CategoriesFormComponent implements OnInit {
         this.categoriesService.getCategory(params['id']).subscribe(category => {
           this.form.controls['name'].setValue(category.name);
           this.form.controls['icon'].setValue(category.icon);
+          this.form.controls['color'].setValue(category.color);
           this.currentId = category.id;
         })
       }
@@ -47,7 +49,8 @@ export class CategoriesFormComponent implements OnInit {
     const category: Category = {
       id: this.currentId,
       name: this.form.controls['name'].value,
-      icon: this.form.controls['icon'].value
+      icon: this.form.controls['icon'].value,
+      color: this.form.controls['color'].value
     }
     if (this.editmode) {
       this.categoriesService.updateCategory(category).subscribe({
