@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
@@ -23,16 +23,18 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
+import { ProductsListComponent } from './pages/products/products-list/products-list.component';
+import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
 
 const UX_MODULE = [
-  ColorPickerModule, 
-  ConfirmDialogModule, 
-  ToastModule, 
-  InputTextModule, 
-  CardModule, 
-  ToolbarModule, 
-  ButtonModule, 
-  TableModule
+  ColorPickerModule,
+  ConfirmDialogModule,
+  ToastModule,
+  InputTextModule,
+  CardModule,
+  ToolbarModule,
+  ButtonModule,
+  TableModule,
 ];
 
 const routes: Routes = [
@@ -50,12 +52,24 @@ const routes: Routes = [
       },
       {
         path: 'categories/form',
-        component: CategoriesFormComponent
+        component: CategoriesFormComponent,
       },
       {
         path: 'categories/form/:id',
-        component: CategoriesFormComponent
-      }
+        component: CategoriesFormComponent,
+      },
+      {
+        path: 'products',
+        component: ProductsListComponent,
+      },
+      {
+        path: 'products/form',
+        component: ProductsFormComponent,
+      },
+      {
+        path: 'products/form/:id',
+        component: ProductsFormComponent,
+      },
     ],
   },
 ];
@@ -69,6 +83,8 @@ const routes: Routes = [
     DashboardComponent,
     CategoriesListComponent,
     CategoriesFormComponent,
+    ProductsListComponent,
+    ProductsFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,7 +95,12 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
     [...UX_MODULE],
   ],
-  providers: [CategoriesService, FormBuilder, MessageService, ConfirmationService],
+  providers: [
+    CategoriesService,
+    FormBuilder,
+    MessageService,
+    ConfirmationService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
