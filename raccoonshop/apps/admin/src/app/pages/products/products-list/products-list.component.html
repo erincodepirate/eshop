@@ -22,21 +22,17 @@
                         <tr>
                             <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
                             <th>Image</th>
-                            <th pSortableColumn="name">Price <p-sortIcon field="name"></p-sortIcon></th>
-                            <th pSortableColumn="name">Stock <p-sortIcon field="name"></p-sortIcon></th>
-                            <th pSortableColumn="name">Category <p-sortIcon field="name"></p-sortIcon></th>
-                            <th pSortableColumn="name">Created at <p-sortIcon field="name"></p-sortIcon></th>
+                            <th pSortableColumn="countInStock">Stock <p-sortIcon field="countInStock"></p-sortIcon></th>
+                            <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
                             <th></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-product>
                         <tr>
                             <td>{{product.name}}</td>
-                            <td>{{product.image}}</td>
-                            <td>{{product.stock}}</td>
+                            <td><img [src]="product.image" style="width: 100px"></td>
                             <td>{{product.countInStock}}</td>
-                            <td>{{product.category.name}}</td>
-                            <td>{{product.dateCreated}}</td>
+                            <td>{{product.category ? product.category.name : ''}}</td>
                             <td>
                                 <p-button
                                     styleClass="p-button-danger mr-2"

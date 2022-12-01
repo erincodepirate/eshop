@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProductsService, Product } from '@raccoonshop/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
@@ -9,9 +10,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class ProductsListComponent implements OnInit {
 
-  products = []
+  products: Product[] = []
   constructor(
-    //private productsService: ,
+    private productsService: ProductsService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router
@@ -22,18 +23,18 @@ export class ProductsListComponent implements OnInit {
   }
 
   deleteProduct(productId: string) {
-/*    this.confirmationService.confirm({
+    this.confirmationService.confirm({
             message: 'Are you sure that you want to delete the category?',
-            header: 'Delete Category',
+            header: 'Delete Product',
             icon: 'pi pi-exclaimation-triangle',
             accept: () => {
-              this.categoriesService.deleteCategory(categoryId).subscribe({
+              this.productsService.deleteProduct(productId).subscribe({
                 next: res => {
                   this.messageService.add({
                     severity:'success', 
                     summary:'Success', 
-                    detail:'Category is deleted'});
-                  this.getCategories();
+                    detail:'Product is deleted'});
+                  this.getProducts();
                 },
                 error: err => {
                   this.messageService.add({
@@ -43,7 +44,7 @@ export class ProductsListComponent implements OnInit {
                 }
               })
             }
-        });*/
+        });
   }
 
   updateProduct(productId: string) {
@@ -51,9 +52,9 @@ export class ProductsListComponent implements OnInit {
   }
 
   private getProducts() {
-    /*this.categoriesService.getCategories().subscribe(res => {
-      this.categories = res;
-    })*/
+    this.productsService.getProducts().subscribe(res => {
+      this.products = res;
+    })
   }
 
 }

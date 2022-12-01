@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { ProductsService } from '@raccoonshop/products';
+
 
 @Component({
   selector: 'admin-products-form',
@@ -15,7 +17,7 @@ export class ProductsFormComponent implements OnInit {
   currentId = '';
   constructor(
     private formBuilder: FormBuilder, 
-    //private productsService: ,
+    private productsService: ProductsService,
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute) {
