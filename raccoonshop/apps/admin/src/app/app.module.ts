@@ -25,6 +25,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 const UX_MODULE = [
   ColorPickerModule,
@@ -35,6 +39,10 @@ const UX_MODULE = [
   ToolbarModule,
   ButtonModule,
   TableModule,
+  DropdownModule,
+  InputNumberModule,
+  InputTextareaModule,
+  InputSwitchModule
 ];
 
 const routes: Routes = [

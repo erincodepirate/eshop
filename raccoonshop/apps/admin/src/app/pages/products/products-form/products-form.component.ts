@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { ProductsService } from '@raccoonshop/products';
+import { CategoriesService, Category, ProductsService } from '@raccoonshop/products';
 
 
 @Component({
@@ -15,20 +15,32 @@ export class ProductsFormComponent implements OnInit {
   isSubmitted = false;
   editmode = false;
   currentId = '';
+  categories: Category[] = [];
+
   constructor(
     private formBuilder: FormBuilder, 
     private productsService: ProductsService,
     private messageService: MessageService,
+    private categoriesService: CategoriesService,
     private router: Router,
     private route: ActivatedRoute) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      icon: ['', Validators.required],
-      color: ['#fff']
+      brand: ['', Validators.required],
+      price: ['', Validators.required],
+      category: ['', Validators.required],
+      countInStock: ['', Validators.required],
+      description: ['', Validators.required],
+      richDescription: [''],
+      image: [''],
+      isFeatured: ['']
     })
   }
 
   ngOnInit(): void {
+    this.categoriesService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    })
     this.route.params.subscribe(params => {
       if(params['id']) {
         this.editmode = true;
