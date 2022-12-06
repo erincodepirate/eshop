@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CategoriesService, Category, ProductsService } from '@raccoonshop/products';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -16,12 +17,14 @@ export class ProductsFormComponent implements OnInit {
   editmode = false;
   currentId = '';
   categories: Category[] = [];
+  imageDisplay: string = '';
 
   constructor(
     private formBuilder: FormBuilder, 
     private productsService: ProductsService,
     private messageService: MessageService,
     private categoriesService: CategoriesService,
+    private location: Location,
     private router: Router,
     private route: ActivatedRoute) {
     this.form = this.formBuilder.group({
@@ -59,6 +62,10 @@ export class ProductsFormComponent implements OnInit {
     if (this.form.invalid) {
       return
     }
+    const productFormData = new FormData();
+    Object.keys(this.form.controls).map((key)=> {
+      productFormData.append(key, this.form.controls[key].value);
+    });
     /*const category: Category = {
       id: this.currentId,
       name: this.form.controls['name'].value,
@@ -77,10 +84,10 @@ export class ProductsFormComponent implements OnInit {
           this.messageService.add({severity:'error', summary:'Error', detail:'Error updated category'});
         }
       })
-    } else {
-      this.categoriesService.createCategory(category).subscribe({
+    } else {*/
+      this.productsService.createProduct(productFormData).subscribe({
         next: res => {
-          this.messageService.add({severity:'success', summary:'Success', detail:'Category is Created'});
+          this.messageService.add({severity:'success', summary:'Success', detail:`Product ${res.name} is Created`});
           setTimeout(()=> {
             this.goBack();
           }, 2000)
@@ -89,7 +96,22 @@ export class ProductsFormComponent implements OnInit {
           this.messageService.add({severity:'error', summary:'Error', detail:'Error creating category'});
         }
       });
-    }*/
+    //}
+  }
+
+  onImageUpload(event: any) {
+    if (event.target) {
+      const file = event.target.files[0];
+      if (file) {
+        this.form.patchValue({ image: file });
+        this.form.controls['image'].updateValueAndValidity();
+        const fileReader = new FileReader();
+        fileReader.onload = () => {
+          this.imageDisplay = <string>fileReader.result;
+        };
+        fileReader.readAsDataURL(file);
+      }
+    }
   }
 
   goBack() {

@@ -48,17 +48,63 @@
                             >Price is required</small
                           >
                         </div>
+                        <div class="p-field p-col-4">
+                          <label for="countInStock">countInStock</label><br />
+                          <p-inputNumber formControlName="countInStock" mode="decimal" [useGrouping]="false">
+                          </p-inputNumber>
+                          <small *ngIf="form.controls['countInStock'].invalid && isSubmitted" class="p-error"
+                            >Count in stock is required</small
+                          >
+                        </div>
                         <div class="p-field p-col">
                           <label for="category">Category</label>
-                          <select formControlName="category" class="form-control" id="category">
-                            <option *ngFor="let category of categories">{{category.name}}</option>
+                          <select formControlName="category" class="form-control" id="category">
+                            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
                           </select>
+                          <small *ngIf="form.controls['category'].invalid && isSubmitted" class="p-error">
+                            Category is required</small>
                         </div>
                         <div class="isFeatured">
                           <label for="isFeatured">Featured</label>
                           <p-inputSwitch formControlName="isFeatured" id="isFeatured"></p-inputSwitch>
                         </div>
                       </div>
+                      <div class="p-field p-col-12">
+                        <label for="description">Description</label><br />
+                        <textarea
+                          pInputTextarea
+                          formControlName="description"
+                          [rows]="7"
+                          [cols]="30"
+                        ></textarea>
+                        <small *ngIf="form.controls['description'].invalid && isSubmitted" class="p-error"
+                          >Description is required</small
+                        >
+                      </div>
+                      <div class="p-field p-col-12">
+                        <label for="richDescription">Product Details</label><br />
+                        <textarea
+                          pInputTextarea
+                          formControlName="richDescription"
+                          [rows]="7"
+                          [cols]="30"
+                        ></textarea>
+                      </div>
+                      <div class="p-field p-col-12">
+                        <label for="name">Main Image</label>
+                        <input
+                          type="file"
+                          class="p-inputtext"
+                          accept="image/*"
+                          (change)="onImageUpload($event)"
+                        />
+                        <small *ngIf="form.controls['image'].invalid && isSubmitted" class="p-error"
+                          >Image is required</small
+                        >
+                        <div class="p-col-2 p-mt-2 p-pl-0">
+                          <img style="width: 100%" [src]="imageDisplay" alt="" />
+                        </div>
+                      </div>          
                 </form>
             </div>
         </div>

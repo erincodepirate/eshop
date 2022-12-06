@@ -20,8 +20,8 @@ export class ProductsService {
     return this.http.get<Product>(this.apiURLProducts + productId)
   }
 
-  createProduct(product: Product) {
-    return this.http.post<Product>(this.apiURLProducts, product);
+  createProduct(productData: FormData): Observable<Product> {
+    return this.http.post<Product>(this.apiURLProducts, productData);
   }
 
   deleteProduct(productId: string) {
