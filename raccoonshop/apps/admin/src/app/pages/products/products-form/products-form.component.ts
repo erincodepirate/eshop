@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { CategoriesService, Category, ProductsService } from '@raccoonshop/products';
+import { CategoriesService, Category, Product, ProductsService } from '@raccoonshop/products';
 import { Location } from '@angular/common';
 
 
@@ -35,7 +35,7 @@ export class ProductsFormComponent implements OnInit {
       countInStock: ['', Validators.required],
       description: ['', Validators.required],
       richDescription: [''],
-      image: [''],
+      image: ['', Validators.required],
       isFeatured: ['']
     })
   }
@@ -47,12 +47,19 @@ export class ProductsFormComponent implements OnInit {
     this.route.params.subscribe(params => {
       if(params['id']) {
         this.editmode = true;
-        /*this.productsService.getProduct(params['id']).subscribe(category => {
-          this.form.controls['name'].setValue(category.name);
-          this.form.controls['icon'].setValue(category.icon);
-          this.form.controls['color'].setValue(category.color);
-          this.currentId = category.id;
-        })*/
+        this.productsService.getProduct(params['id']).subscribe(product => {
+          this.form.controls['name'].setValue(product.name);
+          this.form.controls['brand'].setValue(product.brand);
+          this.form.controls['price'].setValue(product.price);
+          this.form.controls['category'].setValue(product.category?.id);
+          this.form.controls['countInStock'].setValue(product.countInStock);
+          this.form.controls['description'].setValue(product.description);
+          this.form.controls['richDescription'].setValue(product.richDescription);
+          this.form.controls['isFeatured'].setValue(product.isFeatured);
+          this.currentId = product.id;
+          this.imageDisplay = product.image;
+          this.form.controls['image'].setValidators([]);
+        })
       }
     });
   }
@@ -66,14 +73,8 @@ export class ProductsFormComponent implements OnInit {
     Object.keys(this.form.controls).map((key)=> {
       productFormData.append(key, this.form.controls[key].value);
     });
-    /*const category: Category = {
-      id: this.currentId,
-      name: this.form.controls['name'].value,
-      icon: this.form.controls['icon'].value,
-      color: this.form.controls['color'].value
-    }
     if (this.editmode) {
-      this.categoriesService.updateCategory(category).subscribe({
+      this.productsService.updateProduct(this.currentId, productFormData).subscribe({
         next: res => {
           this.messageService.add({severity:'success', summary:'Success', detail:'Category is Updated'});
           setTimeout(()=> {
@@ -84,7 +85,7 @@ export class ProductsFormComponent implements OnInit {
           this.messageService.add({severity:'error', summary:'Error', detail:'Error updated category'});
         }
       })
-    } else {*/
+    } else {
       this.productsService.createProduct(productFormData).subscribe({
         next: res => {
           this.messageService.add({severity:'success', summary:'Success', detail:`Product ${res.name} is Created`});
@@ -96,7 +97,7 @@ export class ProductsFormComponent implements OnInit {
           this.messageService.add({severity:'error', summary:'Error', detail:'Error creating category'});
         }
       });
-    //}
+    }
   }
 
   onImageUpload(event: any) {

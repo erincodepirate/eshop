@@ -28,7 +28,7 @@ export class ProductsService {
     return this.http.delete<Object>(this.apiURLProducts + productId)
   }
   
-  updateProduct(product: Product) {
-    return this.http.put<Product>(this.apiURLProducts + product.id, product);
+  updateProduct(productId: string,productData: FormData) {
+    return this.http.put<Product>(this.apiURLProducts + productId, productData);
   }
 }
